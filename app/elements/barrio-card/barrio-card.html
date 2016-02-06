@@ -20,6 +20,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
       }
+      :host *{
+        outline: 1px dotted red;
+      }
       .dropright{
         width: 100%;
       }
@@ -30,11 +33,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 50%;
       }
       .barrio-card-map-container{
-          width: 58.5%;
+          width: 75%;
+          max-width: 400px;
+          min-width: 150px;
       }
       .barrio-card-info-container{
+        float: center;
         text-align: right;
-        width: 18.5%;
+        width: 30%;
+        max-width: 330px;
+        min-width: 140px;
+      }
+      .barrio-card-item{
+        padding: 3%;
+      }
+      .barrio-card-item span{
+        font-weight: bold;
       }
       .barrio-card-info-container{
         padding: 0 0 0 10%;
@@ -42,14 +56,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .barrio-card-ratings-container{
         width: 100%;
         height: 50%;
-        padding: 0 0 0 5%;
+        margin: 2% 0 0 0;
       }
-      google-chart{
+      .barrio-card-chart{
+          position: relative;
+          display: inline-block;
+          height: 250px;
+          width: 250px;
+          overflow: hidden;
+      }
+      .barrio-card-chart google-chart{
         position: relative;
         display: inline-block;
-        height: 20vw;
-        width: 20vw;
+        margin: 0 auto;
+        background-color: rgba(0,0,0,0);
+        height: 100%;
+        width: 100%;
       }
+       .chart-label, .chart-value{
+         font-size: 0.8em;
+         position: relative;
+         display: inline-block;
+         width: 100%;
+       }
+      .chart-label span{
+        text-align: center;
+        font-weight: bold;
+        margin: 0 auto;
+      }
+     .chart-value span{
+       text-align: center;
+       font-weight: bold;
+       margin: 2% 0 0 35%;
+     }
     </style>
     <paper-material elevation="1">
       <h2 class="page-title">{{barrioName}}</h2>
@@ -57,55 +96,72 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iframe src="{{mapUrl}}" width="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
       </section>
       <section class="barrio-card-info-container">
-        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
-        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
-        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
-        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
-        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
-        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
-        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
-        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
-        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Población: <span>{{elements.poblacion}}</span></div>
+        <div class="barrio-card-item">Coste/m2 (€): <span>{{costeM2}}</span></div>
+        <div class="barrio-card-item">Detenciones: <span>{{elements.detenidos}}</span></div>
+        <div class="barrio-card-item">Estaciones Metro: <span>{{metro-value}}</span></div>
+        <div class="barrio-card-item">Indic. Polución: <span>{{polucion-value}}</span></div>
       </section>
-      <google-chart
-        type='pie'
-        options='{
-          "title": "Coste",
-          "pieHole":0.75,
-          "legend":"none",
+      <div class="barrio-card-ratings-container">
+
+      <div class="barrio-card-chart">
+        <div class="chart-label"><span>ECONOMIA</span><span> ({{elements.economia}})</span></div>
+        <google-chart
+          type='pie'
+          options='{
+            "title": "",
+            "pieHole":0.6,
+            "legend":"none",
+            "pieSliceText":"none",
+            "slices": {
+              "0" : { "color" : "#53acc8" },
+              "1" : { "color" : "#EEE" }
+            }
+          }'
+          cols='[  {"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}  ]'
+          rows='[  ["Economia", 2 ]  , ["Empty", 2] ]'>
+        </google-chart>
+      </div>
+      <div class="barrio-card-chart">
+        <div class="chart-label"><span>SEGURIDAD</span><span>  ({{elements.seguridad}})</span></div>
+        <google-chart
+          type='pie'
+          options='{"title": "" , "pieHole": 0.6, "legend" : "none",
           "pieSliceText":"none",
           "slices": {
-            "0" : { "color" : "#27a13e" },
+            "0" : { "color" : "#b543dd" },
             "1" : { "color" : "#EEE" }
-          }
-        }'
-        cols='[  {"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}  ]'
-        rows='[  ["Economia", 2 ]  , ["Empty", 2] ]'>
-      </google-chart>
-
+          }}'
+          cols='[  {"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}  ]'
+          rows='[  ["Seguridad", 7] , ["Empty", 3] ]'>
+        </google-chart>
+    </div>
+    <div class="barrio-card-chart">
+    <div class="chart-label"><span>M. AMBIENTE </span><span> ({{elements.medioAmbiente}})</span></div>
       <google-chart
         type='pie'
-        options='{"title": "Seguridad" , "pieHole": 0.75, "legend" : "none"}'
-        cols='[  {"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}  ]'
-        rows='[  ["Seguridad", 7] , ["Empty", 3] ]'>
-      </google-chart>
-      <google-chart
-        type='pie'
-        options='{"title": "Medio Ambiente" , "pieHole": 0.75, "legend" : "none"}'
+        options='{"title": "" , "pieHole": 0.6, "legend" : "none",
+        "pieSliceText":"none",
+        "slices": {
+          "0" : { "color" : "#27a13e" },
+          "1" : { "color" : "#EEE" }
+        }}'
         cols='[  {"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}  ]'
         rows='[  ["Medio Ambiente", 5] , ["Empty", 5]  ]'>
       </google-chart>
+    </div>
+      <!-- <div class="chart-value"><span>{{economiaValue}}</span></div>
+      <div class="chart-value"><span>{{seguridadValue}}</span></div>
+      <div class="chart-value"><span>{{ambienteValue}}</span></div> -->
+    </div>
       <!-- <paper-button tabindex="0" toggles raised active class="main-color fullwith">VER BARRIO</paper-button> -->
     </paper-material>
-
     <iron-ajax
-            auto
-            id ="ajax"
-            url="[[getUrl()]]"
-            handle-as="json"
-            last-response="{{elements}}">
+        id ="ajax"
+        url="[[getUrl()]]"
+        handle-as="json"
+        last-response="{{elements}}">
     </iron-ajax>
-
   </template>
 
   <script>
@@ -131,17 +187,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             value: 5,
             notify: true
           },
+          costeM2: {
+            type: Number,
+            value: 20,
+            notify: true
+          },
           barrioId: {
             type: Number,
             value: 5,
             notify: true
           }
         },
-
-        getUrl: function(){
-          return "http://localhost:8080/t3chfest_2016_back/barrio/" + barrioId
+        ready: function() {
+          this.$.ajax.url = this.getUrl();
+          this.$.ajax.generateRequest();
+        },
+        getUrl: function() {
+          console.log('getUrl');
+          return 'http://localhost:8080/t3chfest_2016_back/barrio/' + this.barrioId;
         }
-
       });
     })();
   </script>

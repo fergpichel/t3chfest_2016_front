@@ -1,1 +1,290 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Polymer Starter Kit"><title>SMART CITY, BETTER CITY</title><meta name="theme-color" content="#3fb587"><link rel="manifest" href="manifest.json"><meta name="msapplication-TileColor" content="#3fb587"><meta name="mobile-web-app-capable" content="yes"><meta name="application-name" content="PSK"><link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="Polymer Starter Kit"><link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png"><meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png"><link rel="stylesheet" href="styles/main.css"><script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script><link rel="import" href="elements/elements.vulcanized.html"><script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script><link rel="import" href="bower_components/paper-styles/color.html"><link rel="import" href="bower_components/paper-styles/demo-pages.html"><link rel="import" href="bower_components/iron-icons/iron-icons.html"><link rel="import" href="bower_components/paper-button/paper-button.html"><link rel="import" href="bower_components/paper-menu/paper-submenu.html"><link rel="import" href="bower_components/paper-input/paper-input.html"><link rel="import" href="bower_components/google-map/google-map.html"><link rel="import" href="bower_components/iron-icons/maps-icons.html"><style is="custom-style" include="shared-styles"></style></head><body unresolved="" class="fullbleed layout vertical"><span id="browser-sync-binding"></span><template is="dom-bind" id="app"><paper-drawer-panel id="paperDrawerPanel"><paper-scroll-header-panel drawer="" fixed=""><paper-toolbar id="drawerToolbar"><span class="paper-font-title"></span></paper-toolbar><paper-menu class="menu" attr-for-selected="data-route" selected="[[route]]"><a data-route="users" href="users"><iron-icon icon="maps:place"></iron-icon><span>Barrios</span></a></paper-menu></paper-scroll-header-panel><paper-scroll-header-panel main="" id="headerPanelMain" condenses="" keep-condensed-header=""><paper-toolbar id="mainToolbar" class="tall"><paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle=""></paper-icon-button><span class="flex"></span><paper-icon-button icon="refresh"></paper-icon-button><paper-icon-button icon="search"></paper-icon-button><paper-icon-button icon="power-settings-new"></paper-icon-button><div class="middle middle-container center horizontal layout"><div class="app-name">SMART CITY</div></div></paper-toolbar><div class="content"><iron-pages attr-for-selected="data-route" selected="{{route}}"><section data-route="home"><paper-material elevation="1"><my-greeting></my-greeting><p class="paper-font-subhead">You now have:</p><my-list></my-list><p class="paper-font-body2">Looking for more Web App layouts? Check out our <a href="https://github.com/PolymerElements/app-layout-templates">layouts</a> collection. You can also <a href="http://polymerelements.github.io/app-layout-templates/">preview</a> them live.</p></paper-material><paper-material elevation="1"><p class="paper-font-body2">This is another card.</p><section><paper-button tabindex="0" toggles="" raised="" active="" class="main-color">Click me yo!</paper-button></section></paper-material></section><section data-route="users"><paper-material elevation="1"><paper-material elevation="1"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24285.28482530676!2d-3.71763146315883!3d40.46064828152593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422906e34771eb%3A0x9887e1ccf09cb673!2zVGV0dcOhbiwgTWFkcmlk!5e0!3m2!1ses!2ses!4v1454754201754" width="600" height="450" frameborder="0" style="border:0" allowfullscreen=""></iframe></paper-material><paper-material><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48626.2664292431!2d-3.690748432076858!3d40.383553048754735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4225d0994ed505%3A0x41cc0ff30381931!2sPuente+de+Vallecas%2C+Madrid!5e0!3m2!1ses!2ses!4v1454756963645" width="600" height="450" frameborder="0" style="border:0" allowfullscreen=""></iframe></paper-material><barrio-card></barrio-card></paper-material></section><section data-route="login"><login-card></login-card></section><section data-route="user-info"><paper-material elevation="1"><h2 class="page-title">User: {{params.name}}</h2><div>This is {{params.name}}'s section</div></paper-material></section><section data-route="dataload"><paper-material elevation="1"><h2 class="page-title">Data Load</h2><p>This is the Data Load section</p></paper-material></section><section data-route="prototypes"><paper-material elevation="1"><h2 class="page-title">Prototypes</h2><p>This is the Prototypes section</p></paper-material></section><section data-route="programs"><paper-material elevation="1"><h2 class="page-title">Programs</h2><p>This is the Programs section</p></paper-material></section><section data-route="contact"><paper-material elevation="1"><h2 class="page-title">Contact</h2><p>This is the contact section</p></paper-material></section></iron-pages></div></paper-scroll-header-panel></paper-drawer-panel><paper-toast id="toast"><span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()">Ok</span></paper-toast></template><script src="scripts/app.js"></script></body></html>
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Polymer Starter Kit" />
+  <title>SMART CITY, BETTER CITY</title>
+  <!-- Place favicon.ico in the `app/` directory -->
+
+  <!-- Chrome for Android theme color -->
+  <meta name="theme-color" content="#3fb587">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Tile color for Win8 -->
+  <meta name="msapplication-TileColor" content="#3fb587">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="PSK">
+  <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Polymer Starter Kit">
+  <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
+
+  <!-- Tile icon for Win8 (144x144) -->
+  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild-->
+
+  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+  <!-- endbuild -->
+
+  <!-- will be replaced with elements/elements.vulcanized.html -->
+  <link rel="import" href="elements/elements.html">
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/paper-styles/color.html">
+    <link rel="import" href="bower_components/paper-styles/demo-pages.html">
+    <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <link rel="import" href="bower_components/paper-menu/paper-submenu.html">
+    <link rel="import" href="bower_components/paper-input/paper-input.html">
+    <link rel="import" href="bower_components/google-map/google-map.html">
+    <link rel="import" href="bower_components/iron-icons/maps-icons.html">
+
+  <!-- endreplace-->
+
+  <!-- For shared styles, shared-styles.html import in elements.html -->
+  <style is="custom-style" include="shared-styles"></style>
+
+</head>
+
+<body unresolved class="fullbleed layout vertical">
+  <span id="browser-sync-binding"></span>
+  <template is="dom-bind" id="app">
+
+    <paper-drawer-panel id="paperDrawerPanel">
+      <!-- Drawer Scroll Header Panel -->
+      <paper-scroll-header-panel drawer fixed>
+
+        <!-- Drawer Toolbar -->
+        <paper-toolbar id="drawerToolbar">
+          <span class="paper-font-title"></span>
+        </paper-toolbar>
+
+        <!-- Drawer Content -->
+        <paper-menu class="menu" attr-for-selected="data-route" selected="[[route]]">
+
+          <!-- <a data-route="home" href="{{baseUrl}}">
+            <iron-icon icon="home"></iron-icon>
+            <span>Home</span>
+          </a> -->
+
+          <!-- <a data-route="login" href="login">
+            <iron-icon icon="perm-identity"></iron-icon>
+            <span>Login</span>
+          </a>
+
+          <paper-submenu>
+            <paper-item class="menu-trigger">
+              <iron-icon icon="assignment"></iron-icon>
+              <span>Listar Programas</span>
+            </paper-item>
+            <paper-menu class="menu-content">
+              <a data-route="users" href="users">Listar Usuarios</a>
+              <a data-route="prototypes" href="prototypes">Listar Prototipos</a>
+              <a data-route="programs" href="programs">Listar Programas</a>
+            </paper-menu>
+          </paper-submenu> -->
+
+          <!-- <a data-route="dataload" href="dataload">
+            <iron-icon icon="file-upload"></iron-icon>
+            <span>Cargar datos</span>
+          </a> -->
+
+          <a data-route="users" href="users">
+            <iron-icon icon="maps:place"></iron-icon>
+            <span>Barrios</span>
+          </a>
+
+          <!-- <a data-route="contact" href="contact">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Envío de mails</span>
+          </a>
+        </paper-menu> -->
+      </paper-scroll-header-panel>
+
+      <!-- Main Area -->
+      <paper-scroll-header-panel main id="headerPanelMain" condenses keep-condensed-header>
+
+        <!-- Main Toolbar -->
+        <paper-toolbar id="mainToolbar" class="tall">
+          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+          <span class="flex"></span>
+
+          <!-- Toolbar icons -->
+          <paper-icon-button icon="refresh"></paper-icon-button>
+          <paper-icon-button icon="search"></paper-icon-button>
+          <paper-icon-button icon="power-settings-new"></paper-icon-button>
+
+          <!-- Application name -->
+          <div class="middle middle-container center horizontal layout">
+            <!-- <div class="app-logo"></div> -->
+            <div class="app-name">SMART CITY</div>
+          </div>
+
+          <!-- Application sub title -->
+          <!-- <div class="bottom bottom-container center horizontal layout">
+            <div class="bottom-title paper-font-subhead">You are connected to LOCALHOST</div>
+          </div> -->
+
+        </paper-toolbar>
+
+        <!-- Main Content -->
+        <div class="content">
+          <iron-pages attr-for-selected="data-route" selected="{{route}}">
+
+            <section data-route="home">
+              <paper-material elevation="1">
+                <my-greeting></my-greeting>
+
+                <p class="paper-font-subhead">You now have:</p>
+                <my-list></my-list>
+
+                <p class="paper-font-body2">Looking for more Web App layouts? Check out our <a href="https://github.com/PolymerElements/app-layout-templates">layouts</a> collection. You can also <a href="http://polymerelements.github.io/app-layout-templates/">preview</a> them live.</p>
+              </paper-material>
+
+              <paper-material elevation="1">
+                <p class="paper-font-body2">This is another card.</p>
+                <section>
+                  <paper-button tabindex="0" toggles raised active class="main-color">Click me yo!</paper-button>
+                </section>
+              </paper-material>
+
+            </section>
+
+            <section data-route="barrios">
+              <!-- <paper-material elevation="1">
+                <h2 class="page-title">Users</h2>
+                <p>This is the users section</p>
+                <a href$="{{baseUrl}}users/Addy">Addy</a><br>
+                <a href$="{{baseUrl}}users/Rob">Rob</a><br>
+                <a href$="{{baseUrl}}users/Chuck">Chuck</a><br>
+                <a href$="{{baseUrl}}users/Sam">Sam</a>
+              </paper-material> -->
+              <!-- <paper-material elevation="1">
+                <google-map latitude="37.779" longitude="-122.3892" zoom="13">
+                    <google-map-marker latitude="37.779" longitude="-122.3892"
+                      title="Go Giants!" draggable="true">
+                    </google-map-marker>
+                </google-map>
+              </paper-material> -->
+
+              <barrio-card barrioId="1" economia-value="7" barrio-name="ARGANZUELA" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24307.849858382797!2d-3.715657629226257!3d40.39818881227063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4227ccbb997967%3A0x2f04ce021cb188ed!2sArganzuela%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775508834"></barrio-card>
+              <barrio-card barrioId="2" economia-value="7" barrio-name="BARAJAS" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48556.892232918806!2d-3.6113808452429055!3d40.47956190241613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4231e0cc808cfb%3A0x498db67d1ab6dcea!2sBarajas%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775561687"></barrio-card>
+              <barrio-card barrioId="3" economia-value="7" barrio-name="CARABANCHEL" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24313.895954705167!2d-3.755347029250995!3d40.38143977052517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42278805dd1c6d%3A0x7c0f9872e0e3d4b5!2sCarabanchel%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775597295"></barrio-card>
+              <barrio-card barrioId="4" economia-value="7" barrio-name="CENTRO" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12150.375914329286!2d-3.715338309920333!3d40.41784460640095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42287e9fd06215%3A0xd5e109ff23e3d0c1!2sCentro%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775651043"></barrio-card>
+              <barrio-card barrioId="5" economia-value="7" barrio-name="CHAMARTIN" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24285.24341479735!2d-3.6935608791336385!3d40.4607628314111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4229243f6c7975%3A0x84f77087e19461b6!2sChamart%C3%ADn%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775680588"></barrio-card>
+              <barrio-card barrioId="6" economia-value="7" barrio-name="CHAMBERI" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12147.057695971038!2d-3.7128486599135333!3d40.43621500190538!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42285f85f3365f%3A0x41f08339a8690f52!2sChamber%C3%AD%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775712209"></barrio-card>
+              <barrio-card barrioId="7" economia-value="7" barrio-name="CIUDAD LINEAL" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48579.232690679746!2d-3.6823188454276474!3d40.448664933364114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422f24768cf4d1%3A0x69ba594b6467a377!2sCdad.+Lineal%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775748426"></barrio-card>
+              <barrio-card barrioId="8" economia-value="7" barrio-name="FUENCARRAL-EL PARDO" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d97002.62671897913!2d-3.8153196850448197!3d40.556343228601264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4229fa4409226f%3A0x1f4d57e1bdbd396f!2sFuencarral-El+Pardo%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775777272"></barrio-card>
+              <barrio-card barrioId="9" economia-value="7" barrio-name="HORTALEZA" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48555.91827215018!2d-3.6723892952348427!3d40.48090845106706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422e9403c02749%3A0x47c6610e0a0ed372!2sHortaleza%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775808134"></barrio-card>
+              <barrio-card barrioId="10" economia-value="7" barrio-name="LATINA" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48623.07414026026!2d-3.8134407457902846!3d40.38797509411675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd41885dce1c4fab%3A0x74d96a0d24669d8c!2sLatina%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775831545"></barrio-card>
+              <barrio-card barrioId="11" economia-value="7" barrio-name="MONCLOA-ARAVACA" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48585.98544472622!2d-3.8082322954835535!3d40.43932199271993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4187ba902ea801%3A0x2efcb6589fe8a8a1!2sMoncloa+-+Aravaca%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775858891"></barrio-card>
+              <barrio-card barrioId="12" economia-value="7" barrio-name="MORATALAZ" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12152.587675946177!2d-3.6514541099248303!3d40.405595959397544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4225ecd0c5bf63%3A0x2df9c554f8298330!2sMoratalaz%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775882036"></barrio-card>
+              <barrio-card barrioId="13" economia-value="7" barrio-name="PUENTE DE VALLECAS" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48626.2664292431!2d-3.690748432076858!3d40.383553048754735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4225d0994ed505%3A0x41cc0ff30381931!2sPuente+de+Vallecas%2C+Madrid!5e0!3m2!1ses!2ses!4v1454756963645"></barrio-card>
+              <barrio-card barrioId="14" economia-value="7" barrio-name="RETIRO" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12152.14459706709!2d-3.6848522099239114!3d40.40804995879724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4228a0462ae9a5%3A0xb810b11635a3dc76!2sRetiro%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775906908"></barrio-card>
+              <barrio-card barrioId="15" economia-value="7" barrio-name="SALAMANCA" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12147.88176762769!2d-3.6844207599152194!3d40.43165340302185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4228b8e2b7b727%3A0x2343f6316e2f37b7!2sSalamanca%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775928908"></barrio-card>
+              <barrio-card barrioId="16" economia-value="7" barrio-name="SAN BLAS-CANILLEJAS" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12147.88176762769!2d-3.6844207599152194!3d40.43165340302185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422fe5a7d75773%3A0xf96b3a23da8f98cb!2sSan+Blas-Canillejas%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775951346"></barrio-card>
+              <barrio-card barrioId="17" economia-value="7" barrio-name="TETUAN" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24285.28482530676!2d-3.71763146315883!3d40.46064828152593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422906e34771eb%3A0x9887e1ccf09cb673!2zVGV0dcOhbiwgTWFkcmlk!5e0!3m2!1ses!2ses!4v1454754201754"></barrio-card>
+              <barrio-card barrioId="18" economia-value="7" barrio-name="USERA" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24315.075941188017!2d-3.7186335292558375!3d40.378170272136245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4226536e5067c5%3A0x952d3e5f8795d3f5!2sUsera%2C+Madrid!5e0!3m2!1ses!2ses!4v1454775980396"></barrio-card>
+              <barrio-card barrioId="19" economia-value="7" barrio-name="VICALVARO" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48620.67795545038!2d-3.6089428457704487!3d40.39129409079558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42256914050a71%3A0x260340f4bc004bb1!2sVic%C3%A1lvaro%2C+Madrid!5e0!3m2!1ses!2ses!4v1454776003955"></barrio-card>
+              <barrio-card barrioId="20" economia-value="7" barrio-name="VILLA DE VALLECAS" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48649.40340412505!2d-3.652605896007949!3d40.35149108061462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42248b9a3606b5%3A0x1801617181ceab09!2sVilla+de+Vallecas%2C+Madrid!5e0!3m2!1ses!2ses!4v1454776032398"></barrio-card>
+              <barrio-card barrioId="21" economia-value="7" barrio-name="VILLAVERDE" map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24327.947750491163!2d-3.708608929308553!3d40.342490889711584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4226c565cbac31%3A0x5891073918172aa7!2sVillaverde%2C+Madrid!5e0!3m2!1ses!2ses!4v1454776056361"></barrio-card>
+            </section>
+
+
+            <section data-route="login">
+              <login-card></login-card>
+            </section>
+
+            <section data-route="user-info">
+              <paper-material elevation="1">
+                <h2 class="page-title">User: {{params.name}}</h2>
+                <div>This is {{params.name}}'s section</div>
+              </paper-material>
+            </section>
+
+            <section data-route="dataload">
+              <paper-material elevation="1">
+                <h2 class="page-title">Data Load</h2>
+                <p>This is the Data Load section</p>
+              </paper-material>
+            </section>
+
+            <section data-route="prototypes">
+              <paper-material elevation="1">
+                <h2 class="page-title">Prototypes</h2>
+                <p>This is the Prototypes section</p>
+              </paper-material>
+            </section>
+
+            <section data-route="programs">
+              <paper-material elevation="1">
+                <h2 class="page-title">Programs</h2>
+                <p>This is the Programs section</p>
+              </paper-material>
+            </section>
+
+            <section data-route="contact">
+              <paper-material elevation="1">
+                <h2 class="page-title">Contact</h2>
+                <p>This is the contact section</p>
+              </paper-material>
+            </section>
+
+          </iron-pages>
+        </div>
+      </paper-scroll-header-panel>
+    </paper-drawer-panel>
+
+    <paper-toast id="toast">
+      <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()">Ok</span>
+    </paper-toast>
+
+    <!-- Uncomment next block to enable Service Worker support (1/2) -->
+    <!--
+    <paper-toast id="caching-complete"
+                 duration="6000"
+                 text="Caching complete! This app will work offline.">
+    </paper-toast>
+
+    <platinum-sw-register auto-register
+                          clients-claim
+                          skip-waiting
+                          on-service-worker-installed="displayInstalledToast">
+      <platinum-sw-cache default-cache-strategy="fastest"
+                         cache-config-file="cache-config.json">
+      </platinum-sw-cache>
+    </platinum-sw-register>
+    -->
+
+  </template>
+
+  <!-- build:js scripts/app.js -->
+  <script src="scripts/app.js"></script>
+  <!-- endbuild-->
+</body>
+
+</html>

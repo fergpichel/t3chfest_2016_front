@@ -23,27 +23,89 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .dropright{
         width: 100%;
       }
-
+      .barrio-card-map-container, .barrio-card-info-container,
+      .barrio-card-ratings-container{
+        display: inline-block;
+        position: relative;
+        height: 50%;
+      }
+      .barrio-card-map-container{
+          width: 58.5%;
+      }
+      .barrio-card-info-container{
+        text-align: right;
+        width: 18.5%;
+      }
+      .barrio-card-info-container{
+        padding: 0 0 0 10%;
+      }
+      .barrio-card-ratings-container{
+        width: 100%;
+        height: 50%;
+        padding: 0 0 0 5%;
+      }
+      google-chart{
+        position: relative;
+        display: inline-block;
+        height: 20vw;
+        width: 20vw;
+      }
     </style>
     <paper-material elevation="1">
-      <h2 class="page-title">Barrio:</h2>
-      <section class="paper-font-body2">
-        <!-- <paper-input placeholder="email" type="email"></paper-input>
-        <paper-input placeholder="password" type="password"></paper-input>
-              <paper-dropdown-menu label="enviroment" class="dropright">
-                <paper-tabs class="dropdown-content">
-                <paper-tab>localhost</paper-tab>
-                <paper-tab>integracion</paper-tab>
-                <paper-tab>pre</paper-tab>
-                <paper-tab>pro</paper-tab>
-                <paper-tab>demo</paper-tab>
-              </paper-tabs>
-            </paper-dropdown-menu> -->
+      <h2 class="page-title">{{barrioName}}</h2>
+      <section class="barrio-card-map-container">
+        <iframe src="{{mapUrl}}" width="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
       </section>
-      <section>
-        <paper-button tabindex="0" toggles raised active class="main-color fullwith">VER BARRIOS</paper-button>
+      <section class="barrio-card-info-container">
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
       </section>
+      <google-chart
+        type='pie'
+        options='{
+          "title": "Coste",
+          "pieHole":0.75,
+          "legend":"none",
+          "pieSliceText":"none",
+          "slices": {
+            "0" : { "color" : "#27a13e" },
+            "1" : { "color" : "#EEE" }
+          }
+        }'
+        cols='[  {"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}  ]'
+        rows='[  ["Economia", 2 ]  , ["Empty", 2] ]'>
+      </google-chart>
+
+      <google-chart
+        type='pie'
+        options='{"title": "Seguridad" , "pieHole": 0.75, "legend" : "none"}'
+        cols='[  {"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}  ]'
+        rows='[  ["Seguridad", 7] , ["Empty", 3] ]'>
+      </google-chart>
+      <google-chart
+        type='pie'
+        options='{"title": "Medio Ambiente" , "pieHole": 0.75, "legend" : "none"}'
+        cols='[  {"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}  ]'
+        rows='[  ["Medio Ambiente", 5] , ["Empty", 5]  ]'>
+      </google-chart>
+      <!-- <paper-button tabindex="0" toggles raised active class="main-color fullwith">VER BARRIO</paper-button> -->
     </paper-material>
+
+    <iron-ajax
+            auto
+            id ="ajax"
+            url="[[getUrl()]]"
+            handle-as="json"
+            last-response="{{elements}}">
+    </iron-ajax>
+
   </template>
 
   <script>
@@ -51,29 +113,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       'use strict';
 
       Polymer({
-        is: 'login-card',
+        is: 'barrio-card',
 
         properties: {
-          greeting: {
+          barrioName: {
             type: String,
-            value: 'Here you can upload you .CSV Files',
+            value: 'Nombre del Barrio',
+            notify: true
+          },
+          mapUrl: {
+            type: String,
+            value: 'Map Url',
+            notify: true
+          },
+          economiaValue: {
+            type: Number,
+            value: 5,
+            notify: true
+          },
+          barrioId: {
+            type: Number,
+            value: 5,
             notify: true
           }
+        },
+
+        getUrl: function(){
+          return "http://localhost:8080/t3chfest_2016_back/barrio/" + barrioId
         }
+
       });
-
-      Polymer({
-        is: 'dom-repeat',
-
-        enviroments: [
-          'localhost',
-          'integracion',
-          'pre',
-          'pro',
-          'demo'
-        ]
-      });
-
     })();
   </script>
 
