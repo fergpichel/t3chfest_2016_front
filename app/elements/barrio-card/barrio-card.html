@@ -97,6 +97,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </google-chart>
       <!-- <paper-button tabindex="0" toggles raised active class="main-color fullwith">VER BARRIO</paper-button> -->
     </paper-material>
+
+    <iron-ajax
+            auto
+            id ="ajax"
+            url="[[getUrl()]]"
+            handle-as="json"
+            last-response="{{elements}}">
+    </iron-ajax>
+
   </template>
 
   <script>
@@ -121,8 +130,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: Number,
             value: 5,
             notify: true
+          },
+          barrioId: {
+            type: Number,
+            value: 5,
+            notify: true
           }
+        },
+
+        getUrl: function(){
+          return "http://localhost:8080/t3chfest_2016_back/barrio/" + barrioId
         }
+
       });
     })();
   </script>
