@@ -1,0 +1,119 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="my-views">
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <section data-route="home">
+      <paper-material elevation="1">
+        <my-greeting></my-greeting>
+
+        <p class="paper-font-subhead">You now have:</p>
+        <my-list></my-list>
+
+        <p class="paper-font-body2">Looking for more Web App layouts? Check out our <a href="https://github.com/PolymerElements/app-layout-templates">layouts</a> collection. You can also <a href="http://polymerelements.github.io/app-layout-templates/">preview</a> them live.</p>
+      </paper-material>
+
+      <paper-material elevation="1">
+        <p class="paper-font-body2">This is another card.</p>
+        <section>
+          <paper-button tabindex="0" toggles raised active class="main-color">Click me yo!</paper-button>
+        </section>
+      </paper-material>
+
+    </section>
+
+    <section data-route="users">
+      <paper-material elevation="1">
+        <h2 class="page-title">Users</h2>
+        <p>This is the users section</p>
+        <a href$="{{baseUrl}}users/Addy">Addy</a><br>
+        <a href$="{{baseUrl}}users/Rob">Rob</a><br>
+        <a href$="{{baseUrl}}users/Chuck">Chuck</a><br>
+        <a href$="{{baseUrl}}users/Sam">Sam</a>
+      </paper-material>
+    </section>
+    <iron-pages attr-for-selected="data-route" selected="{{route}}">
+    <section data-route="login">
+      <paper-material elevation="1">
+        <h2 class="page-title">Login</h2>
+        <section class="paper-font-body2">
+          <paper-input placeholder="email" type="email"></paper-input>
+          <paper-input placeholder="password" type="password"></paper-input>
+        </section>
+        <section>
+          <paper-button tabindex="0" toggles raised active class="main-color fullwith">Login</paper-button>
+        </section>
+      </paper-material>
+    </section>
+
+    <section data-route="user-info">
+      <paper-material elevation="1">
+        <h2 class="page-title">User: {{params.name}}</h2>
+        <div>This is {{params.name}}'s section</div>
+      </paper-material>
+    </section>
+
+    <section data-route="dataload">
+      <paper-material elevation="1">
+        <h2 class="page-title">Data Load</h2>
+        <p>This is the Data Load section</p>
+      </paper-material>
+    </section>
+
+    <section data-route="prototypes">
+      <paper-material elevation="1">
+        <h2 class="page-title">Prototypes</h2>
+        <p>This is the Prototypes section</p>
+      </paper-material>
+    </section>
+
+    <section data-route="programs">
+      <paper-material elevation="1">
+        <h2 class="page-title">Programs</h2>
+        <p>This is the Programs section</p>
+      </paper-material>
+    </section>
+
+    <section data-route="contact">
+      <paper-material elevation="1">
+        <h2 class="page-title">Contact</h2>
+        <p>This is the contact section</p>
+      </paper-material>
+    </section>
+    <iron-pages>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'my-views',
+
+        properties: {
+          greeting: {
+            type: String,
+            value: 'Here you can upload you .CSV Files',
+            notify: true
+          }
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

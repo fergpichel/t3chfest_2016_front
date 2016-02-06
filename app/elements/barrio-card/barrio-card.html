@@ -1,0 +1,130 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../styles/app-theme.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+
+<dom-module id="barrio-card">
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+      .dropright{
+        width: 100%;
+      }
+      .barrio-card-map-container, .barrio-card-info-container,
+      .barrio-card-ratings-container{
+        display: inline-block;
+        position: relative;
+        height: 50%;
+      }
+      .barrio-card-map-container{
+          width: 58.5%;
+      }
+      .barrio-card-info-container{
+        text-align: right;
+        width: 18.5%;
+      }
+      .barrio-card-info-container{
+        padding: 0 0 0 10%;
+      }
+      .barrio-card-ratings-container{
+        width: 100%;
+        height: 50%;
+        padding: 0 0 0 5%;
+      }
+      google-chart{
+        position: relative;
+        display: inline-block;
+        height: 20vw;
+        width: 20vw;
+      }
+    </style>
+    <paper-material elevation="1">
+      <h2 class="page-title">{{barrioName}}</h2>
+      <section class="barrio-card-map-container">
+        <iframe src="{{mapUrl}}" width="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+      </section>
+      <section class="barrio-card-info-container">
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+        <div class="barrio-card-item">Coste/m2: {{costeM2}}</div>
+      </section>
+      <google-chart
+        type='pie'
+        options='{
+          "title": "Coste",
+          "pieHole":0.75,
+          "legend":"none",
+          "pieSliceText":"none",
+          "slices": {
+            "0" : { "color" : "#27a13e" },
+            "1" : { "color" : "#EEE" }
+          }
+        }'
+        cols='[  {"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}  ]'
+        rows='[  ["Economia", 2 ]  , ["Empty", 2] ]'>
+      </google-chart>
+
+      <google-chart
+        type='pie'
+        options='{"title": "Seguridad" , "pieHole": 0.75, "legend" : "none"}'
+        cols='[  {"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}  ]'
+        rows='[  ["Seguridad", 7] , ["Empty", 3] ]'>
+      </google-chart>
+      <google-chart
+        type='pie'
+        options='{"title": "Medio Ambiente" , "pieHole": 0.75, "legend" : "none"}'
+        cols='[  {"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}  ]'
+        rows='[  ["Medio Ambiente", 5] , ["Empty", 5]  ]'>
+      </google-chart>
+      <!-- <paper-button tabindex="0" toggles raised active class="main-color fullwith">VER BARRIO</paper-button> -->
+    </paper-material>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'barrio-card',
+
+        properties: {
+          barrioName: {
+            type: String,
+            value: 'Nombre del Barrio',
+            notify: true
+          },
+          mapUrl: {
+            type: String,
+            value: 'Map Url',
+            notify: true
+          },
+          economiaValue: {
+            type: Number,
+            value: 5,
+            notify: true
+          }
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

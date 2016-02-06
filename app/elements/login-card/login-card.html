@@ -1,0 +1,80 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../styles/app-theme.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+
+<dom-module id="login-card">
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+      .dropright{
+        width: 100%;
+      }
+      
+    </style>
+    <paper-material elevation="1">
+      <h2 class="page-title">Login</h2>
+      <section class="paper-font-body2">
+        <paper-input placeholder="email" type="email"></paper-input>
+        <paper-input placeholder="password" type="password"></paper-input>
+              <paper-dropdown-menu label="enviroment" class="dropright">
+                <paper-tabs class="dropdown-content">
+                <paper-tab>localhost</paper-tab>
+                <paper-tab>integracion</paper-tab>
+                <paper-tab>pre</paper-tab>
+                <paper-tab>pro</paper-tab>
+                <paper-tab>demo</paper-tab>
+              </paper-tabs>
+            </paper-dropdown-menu>
+      </section>
+      <section>
+        <paper-button tabindex="0" toggles raised active class="main-color fullwith">Login</paper-button>
+      </section>
+    </paper-material>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'login-card',
+
+        properties: {
+          greeting: {
+            type: String,
+            value: 'Here you can upload you .CSV Files',
+            notify: true
+          }
+        }
+      });
+
+      Polymer({
+        is: 'dom-repeat',
+
+        enviroments: [
+          'localhost',
+          'integracion',
+          'pre',
+          'pro',
+          'demo'
+        ]
+      });
+
+    })();
+  </script>
+
+</dom-module>
